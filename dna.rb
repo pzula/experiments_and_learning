@@ -9,6 +9,11 @@ class DNA
     end
   end
 
+  def validate(input)
+    letters = input.split("")
+    letters.all?{|letter| dna_nucleotides.include?(letter)}
+  end
+
   def count(type)
     if type != "X"
      nucleotides.count(type)
