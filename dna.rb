@@ -9,6 +9,10 @@ class DNA
     end
   end
 
+  def dna_nucleotides
+    ['A', 'T', 'C', 'G']
+  end
+
   def validate(input)
     letters = input.split("")
     letters.all?{|letter| dna_nucleotides.include?(letter)}
