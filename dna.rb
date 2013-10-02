@@ -9,11 +9,6 @@ class DNA
     else 
       raise ArgumentError.new("Sorry, U is not a valid nucleotide")
     end
-
-    # unless validate(input)
-    #   raise ArgumentError.new("Sorry, #{input} is not a valid nucleotide")
-    # end
-    # @nucleotides = input
   end
 
 
