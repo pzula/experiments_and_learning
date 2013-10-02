@@ -22,24 +22,20 @@ class DNATest < MiniTest::Test
   end
 
   def test_counts_only_thymidine
-    skip
     assert_equal 1, DNA.new('GGGGGTAACCCGG').count('T')
   end
 
   def test_counts_a_nucleotide_only_once
-    skip
     dna = DNA.new('CGATTGGG')
     dna.count('T')
     assert_equal 2, dna.count('T')
   end
 
   def test_dna_has_no_uracil
-    skip
     assert_equal 0, DNA.new('GATTACA').count('U')
   end
 
   def test_dna_counts_do_not_change_after_counting_uracil
-    skip
     dna = DNA.new('GATTACA')
     dna.count('U')
     expected = {'A' => 3, 'T' => 2, 'C' => 1, 'G' => 1}
@@ -47,7 +43,6 @@ class DNATest < MiniTest::Test
   end
 
   def test_validates_nucleotides
-    skip
     assert_raises ArgumentError do
       DNA.new('GACT').count('X')
     end
