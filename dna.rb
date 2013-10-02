@@ -2,11 +2,16 @@ class DNA
   attr_reader :nucleotides 
 
   def initialize(input)
-    if validate(input)
-      @nucleotides = input
-    else 
-      raise ArgumentError.new("Sorry, U is not a valid nucleotide")
+    # if validate(input)
+    #   @nucleotides = input
+    # else 
+    #   raise ArgumentError.new("Sorry, U is not a valid nucleotide")
+    # end
+
+    unless validate(input)
+      raise ArgumentError.new("Sorry, #{input} is not a valid nucleotide")
     end
+    @nucleotides = input
   end
 
   def dna_nucleotides
