@@ -20,7 +20,9 @@ end
       elsif guess.to_i > @@secret_number
         "Too high!"
       elsif guess.to_i == @@secret_number
-        "You've got it right! The secret number is #{@@secret_number}."
+        @@secret_number = rand(100)
+        @@guesses = 0
+        "You've got it right! The secret number is #{@@secret_number}. Play again!"
       elsif guess.to_i < @@secret_number - 5
         "Way too low!"
       elsif guess.to_i < @@secret_number
@@ -39,6 +41,6 @@ end
     when "Way too low!" then return "red"
     when "Too high!" then "tan"
     when "Too low!" then "tan"
-    when "You've got it right! The secret number is #{@@secret_number}." then "green"
+    when "You've got it right! The secret number is #{@@secret_number}. Play again!" then "green"
     end
   end
