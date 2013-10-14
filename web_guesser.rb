@@ -1,27 +1,35 @@
 require 'sinatra'
 require 'sinatra/reloader'
 
-SECRET_NUMBER = rand(100)
+@@secret_number = rand(100)
+@@guesses = 0
 
 get '/' do
   guess = params["guess"]
   message = check_guess(guess)
   color = set_color(message)
-  erb :index, :locals => {:secret_number => SECRET_NUMBER, :message => message, :color => color}
+  erb :index, :locals => {:secret_number => @@secret_number, :message => message, :color => color}
 end
 
 
   def check_guess(guess)
-    if guess.to_i > SECRET_NUMBER + 5
-      "Way too high!"
-    elsif guess.to_i > SECRET_NUMBER
-      "Too high!"
-    elsif guess.to_i == SECRET_NUMBER
-      "You've got it right! The secret number is #{SECRET_NUMBER}."
-    elsif guess.to_i < SECRET_NUMBER - 5
-      "Way too low!"
-    elsif guess.to_i < SECRET_NUMBER
-      "Too low!"
+    @@guesses = @@guesses + 1
+    if @@guesses < 5
+      if guess.to_i > @@secret_number + 5
+        "Way too high!"
+      elsif guess.to_i > @@secret_number
+        "Too high!"
+      elsif guess.to_i == @@secret_number
+        "You've got it right! The secret number is #{@@secret_number}."
+      elsif guess.to_i < @@secret_number - 5
+        "Way too low!"
+      elsif guess.to_i < @@secret_number
+        "Too low!"
+      end
+    else
+      @@secret_number = rand(100)
+      @@guesses = 0
+      "Too many guesses! Start guessing again!"
     end
   end
 
@@ -31,6 +39,6 @@ end
     when "Way too low!" then return "red"
     when "Too high!" then "tan"
     when "Too low!" then "tan"
-    when "You've got it right! The secret number is #{SECRET_NUMBER}." then "green"
+    when "You've got it right! The secret number is #{@@secret_number}." then "green"
     end
   end
