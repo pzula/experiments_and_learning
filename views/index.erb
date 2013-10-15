@@ -8,7 +8,10 @@
 	</head>
 	<body>
 
-		<p><%= message %></p>	
+		<p><%= message %></p>
+		<% if cheat == "true" %>
+		<p>The secret number is <%= @@secret_number %></p>
+		<% end %>
 
 		<form>
 			<input type='text' name='guess' />

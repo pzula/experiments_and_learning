@@ -6,9 +6,10 @@ require 'sinatra/reloader'
 
 get '/' do
   guess = params["guess"]
+  cheat = params["cheat"]
   message = check_guess(guess)
   color = set_color(message)
-  erb :index, :locals => {:secret_number => @@secret_number, :message => message, :color => color}
+  erb :index, :locals => {:secret_number => @@secret_number, :message => message, :color => color, :cheat => cheat}
 end
 
 
