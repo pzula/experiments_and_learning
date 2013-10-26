@@ -50,4 +50,5 @@ end
 
 group :test do
   gem "capybara"
+  gem "nyan-cat-formatter"
 end
