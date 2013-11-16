@@ -1,4 +1,5 @@
-rails_movies_tdd
+Movie App
 ================
 
-Working through PragStudio's Rails course
+Working through PragStudio's Rails course using Capybara & RSpec to drive the development. 
+
