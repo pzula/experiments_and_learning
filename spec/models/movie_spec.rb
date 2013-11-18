@@ -26,6 +26,7 @@ describe "A movie" do
 
     expect(Movie.released).to eq([movie3, movie2, movie1])
   end
+
 end
 
 

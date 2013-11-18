@@ -23,6 +23,14 @@
         <th>Total Gross:</th>
         <td><%= format_price(movie) %>
       </tr>
+      <tr>
+        <th>Cast</th>
+        <td><%= movie.cast %></td>
+      </tr>
+      <tr>
+        <th>Director</th>
+        <td><%= movie.director %></td>
+      </tr>
     </table>
   </article>
 <% end %>

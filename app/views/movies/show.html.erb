@@ -18,6 +18,21 @@
   <p>
     <%= format_price(@movie) %>
   </p>
+  <h3>Cast</h3>
+  <p>
+    <%= @movie.cast %>
+  </p>
+  <h3>Director</h3>
+  <p>
+    <%= @movie.director %>
+  </p>
+  <h3>Duration</h3>
+  <p>
+    <%= @movie.duration %>
+  </p>
+  <p>
+    <%= image_for(@movie) %>
+  </p>
 </article>
 
 <%= link_to "All Movies", movies_path %>
