@@ -13,7 +13,7 @@ var Bob = function() {
 	}
 }
 
-exports.Bob = Bob;
+// exports.Bob = Bob; // doesn't work in browsers
 
 
 // // class methods in JS
