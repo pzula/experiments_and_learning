@@ -24,12 +24,29 @@ describe 'the person view', type: :feature do
     end
 
     it 'adds a new email address' do
-
       page.click_link('Add email address')
       page.fill_in('Email', with: 'persa@example.com')
       page.click_button('Create Email address')
       expect(current_path).to eq(person_path(person))
       expect(page).to have_content('persa@example.com')
+    end
+
+    it 'has links to edit an email addresses' do
+      person.email_addresses.each do |email|
+        expect(page).to have_link('edit', href: edit_email_address_path(email))
+      end
+    end
+
+    it 'edits an email addresses' do
+      email_address = person.email_addresses.first
+      old_email = email_address.email
+
+      first(:link, 'edit').click
+      page.fill_in('Email', with: 'newemail@example.com')
+      page.click_button('Update Email address')
+      expect(current_path).to eq(person_path(person))
+      expect(page).to have_content('newemail@example.com')
+      expect(page).to_not have_content(old_email)
     end
   end
 
