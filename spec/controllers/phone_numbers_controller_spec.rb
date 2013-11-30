@@ -62,8 +62,6 @@ describe PhoneNumbersController do
       end
 
       it "redirects to the created phone_number" do
-        alice = Person.create(first_name: 'Alice', last_name: 'Smith')
-        valid_attributes = {number: '555-8888', person_id: alice.id}
         post :create, {:phone_number => valid_attributes}, valid_session
         expect(response).to redirect_to(alice)
       end
