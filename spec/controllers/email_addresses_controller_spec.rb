@@ -133,6 +133,7 @@ describe EmailAddressesController do
   end
 
   describe "DELETE destroy" do
+
     it "destroys the requested email_address" do
       email_address = EmailAddress.create! valid_attributes
       expect {
@@ -140,10 +141,10 @@ describe EmailAddressesController do
       }.to change(EmailAddress, :count).by(-1)
     end
 
-    it "redirects to the email_addresses list" do
+    it "redirects to the person who was associated with the email addresses" do
       email_address = EmailAddress.create! valid_attributes
       delete :destroy, {:id => email_address.to_param}, valid_session
-      response.should redirect_to(email_addresses_url)
+      response.should redirect_to(person_path(email_address.person_id))
     end
   end
 
