@@ -39,11 +39,49 @@ class FlightTest < Minitest::Test
   #        LinkedIn profile, I'll get you an interview.
 
   class Flight
-    # TODO: Do all the work
+    
+    def initialize(flight, seats)
+      @seats = seats
+    end
+
+    def seats
+      @seats
+    end
+
+    def window_seats
+      window = []
+      seats.each do |seat|
+        if seat.window? 
+          window << seat
+        end
+      end
+      window
+    end
+
+    def aisle_seats 
+      aisle = []
+      seats.each do |seat|
+        if seat.aisle?
+          aisle << seat 
+        end
+      end
+      aisle
+    end
+
+    def middle_seats
+      middle_seat = []
+      seats.each do |seat|
+        if seat.middle_seat?
+          middle_seat << seat
+        end
+      end
+      return middle_seat
+    end
+
+
   end
 
   def test_flight_must_be_created_with_seats
-    skip
 
     # TODO: If I wasn't leaving the company I would probably come up with some
     #   way to create all these seats dynamically. Right now I only made 1 row
@@ -53,62 +91,72 @@ class FlightTest < Minitest::Test
     #   going to program in Python starting next week. Ruby is lame anyways.
     #   Hopefully you can figure it out.
 
-    seat_01 = AirlineSeat.new("1A")
-    seat_02 = AirlineSeat.new("1B")
-    seat_03 = AirlineSeat.new("1C")
-    seat_04 = AirlineSeat.new("1D")
-    seat_05 = AirlineSeat.new("1E")
-    seat_06 = AirlineSeat.new("1F")
 
-    seats = [ seat_01, seat_02, seat_03, seat_04, seat_05, seat_06 ]
+    # rows = ("1".."21").to_a
+    # letters = ("A".."F").to_a
+    # possible_seats = []
+
+    # rows.each do |row|
+    #   letters.each do |letter|
+    #     possible_seats << row + letter
+    #   end
+    # end
+
+    # seats = []
+    # possible_seats.each do |seat|
+    #   seats << seat
+    # end
+
+    # above works, but a more elegant way:
+
+    seats = []
+
+    (1..21).each do |row|
+      ("A".."F").each do |position|
+        seats.push AirlineSeat.new("#{row}#{position}")
+      end
+    end
 
     flight = Flight.new("DC444",seats)
     assert_equal 126, flight.seats.count
   end
 
   def test_flight_window_seats_returns_all_the_window_seats
-    skip
+    seats = []
 
-    seat_01 = AirlineSeat.new("1A")
-    seat_02 = AirlineSeat.new("1B")
-    seat_03 = AirlineSeat.new("1C")
-    seat_04 = AirlineSeat.new("1D")
-    seat_05 = AirlineSeat.new("1E")
-    seat_06 = AirlineSeat.new("1F")
-
-    seats = [ seat_01, seat_02, seat_03, seat_04, seat_05, seat_06 ]
+    (1..21).each do |row|
+      ("A".."F").each do |position|
+        seats.push AirlineSeat.new("#{row}#{position}")
+      end
+    end
 
     flight = Flight.new("DC444",seats)
     assert_equal 42, flight.window_seats.count
   end
 
   def test_flight_window_seats_returns_all_the_aisle_seats
-    skip
 
-    seat_01 = AirlineSeat.new("1A")
-    seat_02 = AirlineSeat.new("1B")
-    seat_03 = AirlineSeat.new("1C")
-    seat_04 = AirlineSeat.new("1D")
-    seat_05 = AirlineSeat.new("1E")
-    seat_06 = AirlineSeat.new("1F")
+    seats = []
 
-    seats = [ seat_01, seat_02, seat_03, seat_04, seat_05, seat_06 ]
+    (1..21).each do |row|
+      ("A".."F").each do |position|
+        seats.push AirlineSeat.new("#{row}#{position}")
+      end
+    end
 
     flight = Flight.new("HI667",seats)
     assert_equal 42, flight.aisle_seats.count
   end
 
   def test_flight_window_seats_returns_all_the_middle_seats
-    skip
 
-    seat_01 = AirlineSeat.new("1A")
-    seat_02 = AirlineSeat.new("1B")
-    seat_03 = AirlineSeat.new("1C")
-    seat_04 = AirlineSeat.new("1D")
-    seat_05 = AirlineSeat.new("1E")
-    seat_06 = AirlineSeat.new("1F")
+    seats = []
 
-    seats = [ seat_01, seat_02, seat_03, seat_04, seat_05, seat_06 ]
+    (1..21).each do |row|
+      ("A".."F").each do |position|
+        seats.push AirlineSeat.new("#{row}#{position}")
+      end
+    end
 
     flight = Flight.new("FR343",seats)
     assert_equal 42, flight.middle_seats.count
