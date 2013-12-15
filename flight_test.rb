@@ -1,85 +1,9 @@
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
+require './flight.rb'
 
 class FlightTest < Minitest::Test
-
-  # McDonnell XP-67 "MoonBat"
-  #
-  #                                            |
-  #                                            |
-  #                  .''.         .''. `._    _|_    _.' .''.         .''.
-  #                   '. '.     .' .'     ~-./ _ \.-~     '. '.     .' .'
-  #   ____              '. '._.' .'         /_/_\_\         '. '._.' .'               ____
-  #  '.__ ~~~~-----......-'.' '.'`~-.____.-~       ~-..____.-~'.' '.'`-......-----~~~~ __.'
-  #      ~~~~----....__//.''._.'.\\\           .           ///.'._.''.\\___....----~~~~
-  #                    .' .'__'. '._..__               __.._.' .'__'. '.
-  #                  .' .'||    '. '.   ~-.._______..-~   .' .'    ||'. '.
-  #                 '.,'  ||-.    ',.'        |_|        '.,'    .-||  ',.'
-  #                       \| |                .'.                | |/
-  #                        | |                | |                | |
-  #                        '.'          jro   '.'                '.'
-  #
-  # Dear Developer,
-  #
-  #   The party was great. I met a bunch of awesome companies there and one of
-  #   offered me a job. I took it! They have a ping-pong table and have Hawaiian
-  #   Shirt Fridays. They are working on a product called CampFlix. It's like
-  #   Netflix but for camping. Plus I've been at Planetastic for a WHOLE six
-  #   months. It was about time I moved on to a new company.
-  #
-  #   So I guess this is goodbye. I'll be seeing you. Oh yeah, the CEO asked me
-  #   to add flights to our system at the start of the week for Friday's demo.
-  #   But now that I don't work for him anymore, I guess it falls on you.
-  #
-  #                                                 Sincerely,
-  #                                                   Minimum Viable Developer
-  #
-  #   P.S. CampFlix is hiring. I get an iPad if they hire you. Send me your
-  #        LinkedIn profile, I'll get you an interview.
-
-  class Flight
-    
-    def initialize(flight, seats)
-      @seats = seats
-    end
-
-    def seats
-      @seats
-    end
-
-    def window_seats
-      window = []
-      seats.each do |seat|
-        if seat.window? 
-          window << seat
-        end
-      end
-      window
-    end
-
-    def aisle_seats 
-      aisle = []
-      seats.each do |seat|
-        if seat.aisle?
-          aisle << seat 
-        end
-      end
-      aisle
-    end
-
-    def middle_seats
-      middle_seat = []
-      seats.each do |seat|
-        if seat.middle_seat?
-          middle_seat << seat
-        end
-      end
-      return middle_seat
-    end
-
-
-  end
 
   def test_flight_must_be_created_with_seats
 
