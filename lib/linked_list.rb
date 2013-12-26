@@ -27,7 +27,7 @@ class LinkedList
     end
   end
 
-  def push(item)
+  def append(item)
     node = Node.new(item, nil)
 
     if empty? 

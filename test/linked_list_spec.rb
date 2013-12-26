@@ -12,25 +12,25 @@ describe LinkedList do
 
   end
 
-  context "#push" do
+  context "#append" do
 
     it "adds an element to the end of the list" do
-      subject.push("Hello")
+      subject.append("Hello")
       subject.peek.should eq "Hello"
-      subject.push("World")
+      subject.append("World")
       subject.peek.should eq "World"
     end
-    
+   
     it "increases the size of the list" do
       5.times do |i|
-        subject.push("Hello") 
+        subject.append("Hello") 
         subject.size.should eq i+1 
       end
     end
 
     it "returns the size of the list after adding" do
-      subject.push("Hello").should eq 1
-      subject.push("World").should eq 2     
+      subject.append("Hello").should eq 1
+      subject.append("World").should eq 2     
     end
   end
 
@@ -38,8 +38,8 @@ describe LinkedList do
   
     subject do
       l = LinkedList.new
-      l.push("Hello")
-      l.push("World")
+      l.append("Hello")
+      l.append("World")
       l
     end
 
@@ -72,8 +72,8 @@ describe LinkedList do
 
     subject do
       l = LinkedList.new
-      l.push("Hello")
-      l.push("World")
+      l.append("Hello")
+      l.append("World")
       l
     end
 
@@ -104,8 +104,8 @@ describe LinkedList do
 
     it "returns a size for a non-empty list" do
       l = LinkedList.new
-      l.push("Hello")
-      l.push("World")
+      l.append("Hello")
+      l.append("World")
       l.size.should eq 2
     end
 
@@ -121,8 +121,8 @@ describe LinkedList do
 
     it "returns false when the list contains data" do
       l = LinkedList.new
-      l.push("Hello")
-      l.push("World")
+      l.append("Hello")
+      l.append("World")
       l.should_not be_empty
     end
 
