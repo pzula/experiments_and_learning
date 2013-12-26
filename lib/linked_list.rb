@@ -1,7 +1,10 @@
 class LinkedList
 
+  attr_reader :size
+
   def initialize
     @head = nil
+    @size = 0
   end
 
   def empty?
@@ -30,7 +33,6 @@ class LinkedList
     if current.next.nil?
       data = current.data
       @head = nil
-      return data
     else
       while current.next.next != nil
         current = current.next
@@ -38,8 +40,10 @@ class LinkedList
 
       data = current.next.data
       current.next = nil
-      return data
     end
+    
+    @size -= 1
+    return data
   end
 
   def pop_at(index)
@@ -47,7 +51,6 @@ class LinkedList
     if index >= size
       raise ArgumentError.new("Cannot find index")
     end
-    
 
     if index == 0
       
@@ -66,7 +69,8 @@ class LinkedList
 
     end
 
-      return data
+    @size -= 1
+    return data
   end
 
   def append(item)
@@ -82,7 +86,8 @@ class LinkedList
       current.next = node
     end
 
-    return size
+    @size += 1
+    return @size
   end
 
   def push(item)
@@ -95,7 +100,8 @@ class LinkedList
       @head = node
     end
 
-    return size
+    @size += 1
+    return @size
   end
 
   def peek
@@ -106,20 +112,6 @@ class LinkedList
       current = current.next
     end
     return current.data
-  end
-
-  def size
-    return 0 if empty?
-    
-    counter = 1
-
-    current = @head
-    while current.next != nil
-      current = current.next
-      counter += 1
-    end
-
-    return counter
   end
  
   private
