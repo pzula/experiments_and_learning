@@ -43,6 +43,19 @@ class LinkedList
     return size
   end
 
+  def push(item)
+    node = Node.new(item, nil)
+
+    if empty?
+      @head = node
+    else
+      node.next = @head
+      @head = node
+    end
+
+    return size
+  end
+
   def peek
     raise ArgumentError.new("Can't use peek on empty list") if empty?
 

@@ -111,6 +111,28 @@ describe LinkedList do
 
   end
 
+  context "#push" do
+
+    it "adds an element to the beginning of the list" do
+      subject.push("Hello")
+      subject.peek.should eq "Hello"
+      subject.push("World")
+      subject.peek.should eq "Hello"
+    end
+   
+    it "increases the size of the list" do
+      5.times do |i|
+        subject.push("Hello") 
+        subject.size.should eq i+1 
+      end
+    end
+
+    it "returns the size of the list after adding" do
+      subject.push("Hello").should eq 1
+      subject.push("World").should eq 2     
+    end
+  end
+
 
   context "#empty?" do
     
