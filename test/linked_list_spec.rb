@@ -188,6 +188,59 @@ describe LinkedList do
         subject.at(subject.size)
       }.should raise_error(ArgumentError)
     end
+  end
+
+  context "#pop_at" do
+
+    subject do
+      l = LinkedList.new
+      l.push("Hello")
+      l.push("World")
+      l.push("Lists")
+      l.push("Are Neat")
+      l
+    end
+
+    it "removes the element at the specified index" do
+      item = subject.at(1)
+      subject.pop_at(1)
+      subject.at(1).should_not eq item
+    end
+
+    it "reduce the size of the list by one" do
+      size = subject.size
+      subject.pop_at(1)
+      subject.size.should eq size - 1
+    end
+
+    it "return the element at the specified index" do
+      item = subject.at(1)
+      subject.pop_at(1).should eq item
+    end
+
+    it "returns the first element on index 0" do
+      item = subject.at(0)
+      subject.pop_at(0).should eq item
+    end
+
+    it "returns the last element on index size - 1" do
+      item = subject.at(subject.size - 1)
+      subject.pop_at(subject.size - 1).should eq item
+
+    end
+
+    it "raises an exception if the list is empty" do
+      lambda {
+        l = LinkedList.new
+        l.pop_at(1)
+      }.should raise_error(ArgumentError)
+    end
+
+    it "raises an exception if the index does not exist" do
+      lambda {
+        subject.pop_at(20)
+      }.should raise_error(ArgumentError)
+    end
 
   end
 end

@@ -42,6 +42,33 @@ class LinkedList
     end
   end
 
+  def pop_at(index)
+    raise ArgumentError.new("Cannot pop on an empty list") if empty?
+    if index >= size
+      raise ArgumentError.new("Cannot find index")
+    end
+    
+
+    if index == 0
+      
+      data = @head.data
+      @head = @head.next
+
+    else
+
+      current = @head
+      (index - 1).times do 
+        current = current.next
+      end
+
+      data = current.next.data
+      current.next = current.next.next
+
+    end
+
+      return data
+  end
+
   def append(item)
     node = Node.new(item, nil)
 
