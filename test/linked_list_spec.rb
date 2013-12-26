@@ -149,4 +149,45 @@ describe LinkedList do
     end
 
   end
+
+
+  context "#at" do
+
+    subject do
+      l = LinkedList.new
+      l.append("Hello")
+      l.append("World")
+      l
+    end
+
+    it "returns the element at the index" do 
+      subject.at(1).should eq "World"
+      subject.at(0).should eq "Hello"
+      subject.append("!") 
+      subject.at(2).should eq "!"
+    end
+
+    it "does not remove any elements" do
+      size = subject.size
+      subject.at(1)
+      subject.size.should eq size
+    end
+
+    it "raises an expection if the list is empty" do
+      lambda {
+        l = LinkedList.new
+        l.at(1)
+      }.should raise_error(ArgumentError)
+    end
+
+    it "raises an exception if the index does not exist" do
+      lambda {
+        subject.at(20)
+      }.should raise_error(ArgumentError)
+      lambda {
+        subject.at(subject.size)
+      }.should raise_error(ArgumentError)
+    end
+
+  end
 end

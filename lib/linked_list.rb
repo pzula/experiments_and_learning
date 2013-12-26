@@ -8,6 +8,21 @@ class LinkedList
     @head.nil?
   end
 
+  def at(index)
+    raise ArgumentError.new("Cannot find index on an empty list") if empty?
+    if index >= size
+      raise ArgumentError.new("Index does not exist")
+    end
+    
+    current = @head
+
+    index.times do 
+      current = current.next
+    end
+
+    return current.data
+  end
+
   def pop
     raise ArgumentError.new("Cannot pop on an empty list") if empty?
     current = @head
