@@ -110,4 +110,21 @@ describe LinkedList do
     end
 
   end
+
+
+  context "#empty?" do
+    
+    it "returns true when the list is empty" do
+      l = LinkedList.new
+      l.should be_empty
+    end
+
+    it "returns false when the list contains data" do
+      l = LinkedList.new
+      l.push("Hello")
+      l.push("World")
+      l.should_not be_empty
+    end
+
+  end
 end

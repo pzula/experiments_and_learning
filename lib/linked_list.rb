@@ -4,9 +4,12 @@ class LinkedList
     @head = nil
   end
 
-  def pop
-    raise ArgumentError.new("Cannot pop on an empty list") if @head == nil
+  def empty?
+    @head.nil?
+  end
 
+  def pop
+    raise ArgumentError.new("Cannot pop on an empty list") if empty?
     current = @head
     # if there is only one element in the list
     if current.next.nil?
@@ -29,7 +32,7 @@ class LinkedList
     node.data = item
     node.next = nil
 
-    if @head.nil? 
+    if empty? 
       @head = node
     else
       current = @head
@@ -43,7 +46,7 @@ class LinkedList
   end
 
   def peek
-    raise ArgumentError.new("Can't use peek on empty list") if @head.nil?
+    raise ArgumentError.new("Can't use peek on empty list") if empty?
 
     current = @head
     while current.next != nil
@@ -53,7 +56,7 @@ class LinkedList
   end
 
   def size
-    return 0 if @head.nil?
+    return 0 if empty?
     
     counter = 1
 
