@@ -28,9 +28,7 @@ class LinkedList
   end
 
   def push(item)
-    node = Node.new
-    node.data = item
-    node.next = nil
+    node = Node.new(item, nil)
 
     if empty? 
       @head = node
@@ -71,10 +69,5 @@ class LinkedList
  
   private
 
-  class Node
-   
-    attr_accessor :data, :next
-
-  end
-
+  Node = Struct.new(:data, :next)
 end
