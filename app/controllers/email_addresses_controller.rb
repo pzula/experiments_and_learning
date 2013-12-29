@@ -1,16 +1,6 @@
 class EmailAddressesController < ApplicationController
-  before_action :set_email_address, only: [:show, :edit, :update, :destroy]
+  before_action :set_email_address, only: [:edit, :update, :destroy]
 
-  # GET /email_addresses
-  # GET /email_addresses.json
-  def index
-    @email_addresses = EmailAddress.all
-  end
-
-  # GET /email_addresses/1
-  # GET /email_addresses/1.json
-  def show
-  end
 
   # GET /email_addresses/new
   def new
@@ -29,7 +19,6 @@ class EmailAddressesController < ApplicationController
     respond_to do |format|
       if @email_address.save
         format.html { redirect_to @email_address.contact, notice: 'Email address was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @email_address }
       else
         format.html { render action: 'new' }
         format.json { render json: @email_address.errors, status: :unprocessable_entity }
