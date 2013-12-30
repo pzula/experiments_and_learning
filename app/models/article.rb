@@ -9,6 +9,17 @@ class Article < ActiveRecord::Base
 
   #default_scope :include => [:comments, :tags]
 
+  # WHITELIST_ATTRIBUTES = [:title, :body, :created_at]
+
+  # def to_json(option)
+  #   super(only: WHITELIST_ATTRIBUTES)
+  # end
+
+  # def to_xml(option)
+  #   super(only: WHITELIST_ATTRIBUTES)
+  # end
+
+
   def to_s
     return title
   end

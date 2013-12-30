@@ -2,7 +2,8 @@ class ArticlesController < ApplicationController
   respond_to :html, :json, :xml
 
   def show
-    @article = Article.find(params[:id])
+    @article = Article.find(params[:id]).decorate
+    # @comment = @article.comments.new
     respond_with(@article)
   end
 
