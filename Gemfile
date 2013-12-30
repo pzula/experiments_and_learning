@@ -27,6 +27,8 @@ gem 'jbuilder', '~> 1.2'
 #Use unicorn server instead
 gem 'unicorn'
 
+gem "haml", "~> 3.1.8"
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
