@@ -1,8 +1,9 @@
 class CommentsController < ApplicationController
+  respond_to :html, :json, :xml 
   def create
     article = Article.find(params[:comment][:article_id])
     comment = article.comments.create(params[:comment])
     flash[:notice] = "Your comment was added."
-    redirect_to article_path(article)
+    respond_with comment, location: article_path(article)
   end
 end

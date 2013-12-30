@@ -3,6 +3,7 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+    respond_with(@article)
   end
 
   def index
@@ -18,7 +19,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(params[:article])
     flash[:notice] = @article.save ? "Your article was created." : "Article failed to save."
     respond_with @article, location: articles_path
-  end 
+  end
 
   def edit
     @article = Article.find params[:id]
@@ -26,18 +27,14 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find params[:id]
-    if @article.update_attributes(params[:article])
-      flash[:notice] = "Article was updated."
-      redirect_to article_path(@article)
-    else
-      render :edit
-    end
+    flash[:notice] = @article.update_attributes(params[:article]) ? "Article was updated." : "Article failed to update."
+    respond_with @article
   end
 
   def destroy
     article = Article.find params[:id]
     article.destroy
     flash[:notice] = "#{article} was destroyed."
-    redirect_to articles_path
+    respond_with @article, location: articles_path
   end
 end
