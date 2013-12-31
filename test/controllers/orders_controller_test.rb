@@ -19,5 +19,9 @@ class OrdersControllerTest < ActionController::TestCase
   def test_it_responds_with_a_single_order
     order = Order.create
     get :show, :id => order.id, :format => :json
+
+    assert_response :success
+    data = JSON.parse(@response.body)
+    assert_equal order.id, data["id"]
   end
 end
