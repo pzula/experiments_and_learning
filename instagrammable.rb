@@ -1,11 +1,12 @@
 require "sinatra"
 require "instagram"
-require "better_errors"
+require "json"
+#require "better_errors"
 
-configure :development do
-  use BetterErrors::Middleware
-  BetterErrors.application_root = __dir__
-end
+#configure :development do
+  #use BetterErrors::Middleware
+  #BetterErrors.application_root = __dir__
+#end
 
 enable :sessions
 
@@ -39,5 +40,15 @@ get "/feed" do
     html << "<img src='#{media_item.images.thumbnail.url}'>"
   end
   html
+end
+
+get "/recent/:id" do |id|
+  client = Instagram.client(:access_token => session[:access_token])
+
+  html = "<h2>User's recent photos</h2>  #{Instagram.user_recent_media(id).to_json}"
+
+  client.user_recent_media(id).each do |media_item|
+   html << "<li>#{media_item}</li>" 
+  end
 end
 
