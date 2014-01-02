@@ -43,12 +43,9 @@ get "/feed" do
 end
 
 get "/recent/:id" do |id|
-  client = Instagram.client(:access_token => session[:access_token])
-
   html = "<h2>User's recent photos</h2>  #{Instagram.user_recent_media(id).to_json}"
 
-  client.user_recent_media(id).each do |media_item|
-   html << "<li>#{media_item}</li>" 
-  end
+  #Instagram.user_recent_media(id).each do |media_item|
+   #html << "<li>#{media_item.link}</li>" 
+  #end
 end
-
