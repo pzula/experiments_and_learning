@@ -1,5 +1,6 @@
 require "sinatra"
 require "instagram"
+require "faraday"
 require "json"
 #require "better_errors"
 
@@ -26,8 +27,8 @@ get "/oauth/connect" do
 end
 
 get "/oauth/callback" do
-  response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
-  session[:access_token] = response.access_token
+  @response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
+  session[:access_token] = @response.access_token
   redirect "/feed"
 end
 
@@ -46,6 +47,16 @@ get "/recent/:id" do |id|
   html = "<h2>User's recent photos</h2>  #{Instagram.user_recent_media(id).to_json}"
 
   #Instagram.user_recent_media(id).each do |media_item|
-   #html << "<li>#{media_item.link}</li>" 
+   #html << "<li>#{media_item.link}</li>"
   #end
+
+  get_recent_photos_by_uid(id)
+
+end
+
+#sample user id that is not me: 35087619
+
+def get_recent_photos_by_uid(uid)
+ response = Faraday.get("https://api.instagram.com/v1/users/#{uid}/media/recent?#{session[:access_token]}")
+ data = JSON.parse(response.body)
 end
