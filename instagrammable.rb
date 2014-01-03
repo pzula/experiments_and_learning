@@ -1,13 +1,6 @@
 require "sinatra"
 require "instagram"
-require "faraday"
 require "json"
-#require "better_errors"
-
-#configure :development do
-  #use BetterErrors::Middleware
-  #BetterErrors.application_root = __dir__
-#end
 
 enable :sessions
 
@@ -27,36 +20,41 @@ get "/oauth/connect" do
 end
 
 get "/oauth/callback" do
-  @response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
-  session[:access_token] = @response.access_token
+  response = Instagram.get_access_token(params[:code], :redirect_uri => CALLBACK_URL)
+  session[:access_token] = response.access_token
   redirect "/feed"
 end
 
 get "/feed" do
-  client = Instagram.client(:access_token => session[:access_token])
-  user = client.user
-
   html = "<h1>#{user.username}'s recent photos</h1>"
-  for media_item in client.user_recent_media
-    html << "<img src='#{media_item.images.thumbnail.url}'>"
+
+  get_recent_images_by_user.each do |media_item|
+     html << "<img src='#{media_item.images.low_resolution.url}'>"
   end
+
   html
 end
 
-get "/recent/:id" do |id|
-  client = Instagram.client(:access_token => session[:access_token])
-  user = client.user(id)
-  html = "<h2>#{user.username}'s recent photos</h2>  #{Instagram.user_recent_media(id.to_i).to_json}"
+get "/feed/:id" do |id|
+  html = "<h2>#{user(id).username}'s recent photos</h2>  "
 
-  client.user_recent_media(id).each do |media_item|
+  get_recent_images_by_user(id).each do |media_item|
     html << "<img src='#{media_item.images.low_resolution.url}'>"
   end
   html
 end
 
-#sample user id that is not me: 35087619
 
-#def get_recent_photos_by_uid(uid)
- #response = Faraday.get("https://api.instagram.com/v1/users/#{uid}/media/recent?#{session[:access_token]}")
- #data = JSON.parse(response.body)
-#end
+def client
+  Instagram.client(:access_token => session[:access_token])
+end
+
+def user(uid=nil)
+  uid == nil ? client.user : client.user(uid)
+end
+
+def get_recent_images_by_user(uid=nil)
+  uid == nil ? client.user_recent_media : client.user_recent_media(uid)
+end
+
+
