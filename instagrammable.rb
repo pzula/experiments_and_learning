@@ -44,19 +44,19 @@ get "/feed" do
 end
 
 get "/recent/:id" do |id|
-  html = "<h2>User's recent photos</h2>  #{Instagram.user_recent_media(id).to_json}"
+  client = Instagram.client(:access_token => session[:access_token])
+  user = client.user(id)
+  html = "<h2>#{user.username}'s recent photos</h2>  #{Instagram.user_recent_media(id.to_i).to_json}"
 
-  #Instagram.user_recent_media(id).each do |media_item|
-   #html << "<li>#{media_item.link}</li>"
-  #end
-
-  get_recent_photos_by_uid(id)
-
+  client.user_recent_media(id).each do |media_item|
+    html << "<img src='#{media_item.images.low_resolution.url}'>"
+  end
+  html
 end
 
 #sample user id that is not me: 35087619
 
-def get_recent_photos_by_uid(uid)
- response = Faraday.get("https://api.instagram.com/v1/users/#{uid}/media/recent?#{session[:access_token]}")
- data = JSON.parse(response.body)
-end
+#def get_recent_photos_by_uid(uid)
+ #response = Faraday.get("https://api.instagram.com/v1/users/#{uid}/media/recent?#{session[:access_token]}")
+ #data = JSON.parse(response.body)
+#end
