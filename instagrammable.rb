@@ -44,6 +44,22 @@ get "/feed/:id" do |id|
   html
 end
 
+get "/recent/:location_id" do |location_id|
+  html = "<h2>Recent photos at this location</h2>"
+  get_recent_images_by_location(location_id).each do |media_item|
+    html <<  "<img src='#{media_item.images.low_resolution.url}'>"
+  end
+  html
+end
+
+get "/popular" do
+   html = "<h2>Popular photos</h2>"
+  get_popular.each do |media_item|
+    html <<  "<img src='#{media_item.images.low_resolution.url}'>"
+  end
+  html
+end
+
 
 def client
   Instagram.client(:access_token => session[:access_token])
@@ -57,4 +73,10 @@ def get_recent_images_by_user(uid=nil)
   uid == nil ? client.user_recent_media : client.user_recent_media(uid)
 end
 
+def get_recent_images_by_location(location_id)
+  client.location_recent_media(location_id)
+end
 
+def get_popular
+  client.media_popular
+end
