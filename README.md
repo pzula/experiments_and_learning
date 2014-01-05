@@ -2,6 +2,10 @@
 ## A simple Sinatra app to explore the capabilities of the Instagram API
 
 ### Installation & Usage
+- Register for an API key from <http://instagram.com/developer/>
+- In your `.bash_profile`, add the following:
+  - `export INSTA_CLIENT_ID=xxxxxxxxxx` where `xxxxxxxxx` is the Client ID you are assigned from Instagram
+  - `export INSTA_CLIENT_SECRET=xxxxxxxxx` where `xxxxxxxxx` is the Client Secret you are assigned from Instagram
 - Clone the repository `git clone git@github.com:pzula/instagram-experiments.git`
 - `cd instagram-experiments`
 - Unless you already have these: `gem install sinatra && gem install instagram && gem install json`
