@@ -54,7 +54,7 @@ get "/users/:username" do |username|
   html
 end
 
-get "/recent/:location_id" do |location_id|
+get "/location/:location_id" do |location_id|
   html = "<h2>Recent photos at #{get_location(location_id).name}</h2>"
   get_recent_images_by_location(location_id).each do |media_item|
     html <<  "<img src='#{media_item.images.low_resolution.url}'>"
