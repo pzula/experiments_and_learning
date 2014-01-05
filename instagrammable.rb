@@ -45,7 +45,7 @@ get "/feed/:id" do |id|
 end
 
 get "/recent/:location_id" do |location_id|
-  html = "<h2>Recent photos at this location</h2>"
+  html = "<h2>Recent photos at #{get_location(location_id).name}</h2>"
   get_recent_images_by_location(location_id).each do |media_item|
     html <<  "<img src='#{media_item.images.low_resolution.url}'>"
   end
@@ -71,6 +71,10 @@ end
 
 def get_recent_images_by_user(uid=nil)
   uid == nil ? client.user_recent_media : client.user_recent_media(uid)
+end
+
+def get_location(location_id)
+  client.location(location_id)
 end
 
 def get_recent_images_by_location(location_id)
