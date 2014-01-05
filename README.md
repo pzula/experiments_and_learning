@@ -15,6 +15,7 @@
 
 #### Get the feed of another user by user id
 - Visit <http://localhost:4567/feed/777>, where `777` is the user's id
+- You can look up a user id by username on this site: <http://jelled.com/instagram/lookup-user-id>
 
 #### Get the feed of another user by username
 - Visit <http://localhost:4567/users/nervousdogcoffeebar>, where `nervousdogcoffeebar` is the username
