@@ -8,7 +8,7 @@
 - `ruby instagrammable.rb` will start the Sinatra server, defaulting to port `4567`
 - Visit <http://localhost:4567> and click the "Connect with Instragram" link
 - Follow through the authorization of the app with Instagram
-- On your return page, you will see your own Instagram feed
+- On your return page from Instagram (<http://localhost:4567/feed>), you will see your own Instagram feed
 
 #### Get the most popular photos on Instagram
 - Visit <http://localhost:4567/popular>
