@@ -60,6 +60,16 @@ get "/popular" do
   html
 end
 
+get "/foursquare/:id" do |id|
+  location = get_location_by_foursquare(id)
+  name = location[0]["name"]
+  html = "<h2>Recent photos at #{name}</h2>"
+  get_recent_images_by_foursquare(id).each do |media_item|
+    html <<  "<img src='#{media_item.images.low_resolution.url}'>"
+  end
+  html
+
+end
 
 def client
   Instagram.client(:access_token => session[:access_token])
@@ -79,6 +89,17 @@ end
 
 def get_recent_images_by_location(location_id)
   client.location_recent_media(location_id)
+end
+
+def get_location_by_foursquare(id)
+  client.location_search(id)
+end
+
+def get_recent_images_by_foursquare(id)
+  location = get_location_by_foursquare(id)
+  latitude = location[0]["latitude"]
+  longitude = location[0]["longitude"]
+  client.media_search(latitude, longitude)
 end
 
 def get_popular
