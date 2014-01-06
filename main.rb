@@ -1,50 +1,57 @@
 require 'sinatra'
-require 'oauth2'
+require 'foursquare2'
 require 'json'
-require 'net/https'
+
+enable :sessions
 
 # as found on https://foursquare.com/oauth/
 CLIENT_ID = ENV['FOURSQUARE_CLIENT_ID']
 CLIENT_SECRET = ENV['FOURSQUARE_CLIENT_SECRET']
-CALLBACK_PATH = '/oauth/callback'
-
-def client
-    OAuth2::Client.new(CLIENT_ID, CLIENT_SECRET, 
-      :site => 'http://foursquare.com/v2/',
-      :request_token_path => "/oauth2/request_token",
-      :access_token_path  => "/oauth2/access_token",
-      :authorize_path     => "/oauth2/authenticate?response_type=code",
-      :parse_json => true
-    )
-end
+CALLBACK_PATH = 'http://localhost:4567/oauth/callback'
 
 get '/oauth/callback' do
-  # access_token = client.web_server.get_access_token(params[:code], :redirect_uri => redirect_uri)
-  # It would be better to use the line above but it returns a 301 error, so I use the hack below instead.
-  
-  # start hack
-  uri = URI.parse("https://foursquare.com/v2/oauth2/access_token?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&grant_type=authorization_code&redirect_uri=#{redirect_uri}&code=" + params[:code])
-  http = Net::HTTP.new(uri.host, uri.port)
-  http.use_ssl = true
-  http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-  
-  request = Net::HTTP::Get.new(uri.request_uri)
-  response = JSON.parse(http.request(request).body)
-  access_token = OAuth2::AccessToken.new(client, response["access_token"])
-  # end hack
-  
-  # some user data as an example
-  user = access_token.get('https://api.foursquare.com/v2/users/self')
-  user.inspect
+  if params[:code]
+    access_token_body =  Faraday.get "https://foursquare.com/oauth2/access_token?client_id=#{CLIENT_ID}&client_secret=#{CLIENT_SECRET}&grant_type=authorization_code&redirect_uri=http://localhost:3000/&code=#{params[:code]}"
+
+    access_token = JSON.parse(access_token_body.body)["access_token"]
+    session[:access_token] = access_token
+    redirect "/feed"
+ #   Foursquare2::Client.new(oauth_token: session[:access_token])
+    #html = "#{@foursquare.user_checkins.items.first}"
+  else
+    redirect "/"
+  end
 end
 
-def redirect_uri()
-  uri = URI.parse(request.url)
-  uri.path = CALLBACK_PATH
-  uri.query = nil
-  uri.to_s
-end
 
 get '/' do
-  redirect client.authorize_url(:redirect_uri => redirect_uri)
+  '<a href="/oauth/connect">Connect with Foursquare</a>'
+end
+
+get "/oauth/connect" do
+  redirect authorize_url
+end
+
+get "/feed" do
+  html = "<h1>#{client.user('self').firstName}'s Feed</h1>
+          <h2>All checkins:</h2>"
+  
+  #client.user_checkins.to_json
+
+  client.user_checkins.items.each do |item|
+    html << "<li><p><strong>#{item.venue["name"]}</strong> | 
+            #{item.venue["location"]["city"]}</p>
+            <p>Map it: #{item.venue["location"]["lat"]}, #{item.venue["location"]["lng"]}</p>
+            <p><strong>It happened at:</strong> #{Time.at(item.createdAt)}</p></li>"
+  end
+
+  html
+end
+
+def authorize_url
+   "https://foursquare.com/oauth2/authenticate?client_id=#{CLIENT_ID}&response_type=code&redirect_uri=#{CALLBACK_PATH}"
+end
+
+def client
+  Foursquare2::Client.new(oauth_token: session[:access_token])
 end
