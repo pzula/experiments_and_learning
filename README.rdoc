@@ -1,28 +1,5 @@
-== README
+### Building with Faye in Rails 4
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A quick aync chat client, ported to Rails 4 from the original RailsCast [Messaging with Faye](http://railscasts.com/episodes/260-messaging-with-faye) screencast.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Due to initializers setting ENV variables, starts the Rails server with `rails s` in one window first, then in another terminal window start up the Faye server like so: `rackup faye.ru -s thin -E production`
