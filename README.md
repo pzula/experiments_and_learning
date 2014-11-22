@@ -1,14 +1,7 @@
 # four_clojure_solutions
 
-A Clojure library designed to ... well, that part is up to you.
+Just noodling around on <4clojure.com>
 
-## Usage
+Exercises are `def`'d in `src/four_clojure_solutions/core.clj` with comments on what the exercise represents.
 
-FIXME
-
-## License
-
-Copyright © 2014 FIXME
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+You can run `lein repl` in the project directory and evaluate each `def`. Each should return true for equality.
