@@ -1,0 +1,59 @@
+<html>
+	<head>
+		<script src="jquery-2.0.3.js"></script>	
+		<script src="bob.js"></script>
+	</head>
+
+	<body>
+		<h1>Fireside Chat with Bob</h1>
+		<input type="text" name="chat" id="bob-input">
+		<button id="bob-submit-input">Say</button>
+
+
+		<div id="bob-responses">
+			Bob would say stuff here
+		</div>
+
+		<script>
+			// Find the button
+			var bobInputButton = $("#bob-submit-input");
+			console.log(bobInputButton);
+			// Listen for when the user clicks on the submit button
+			// var whenBobInputIsClicked = function(eventObject) { };
+			// bobInputButton.click(whenBobInputIsClicked);
+
+			// Prevent the default operation of reloading the page
+			bobInputButton.click(function(eventObject) {
+				console.log("Button is Clicked");
+				console.log(eventObject);
+				eventObject.preventDefault(); // stops it from submitting the form or getting link
+			
+			// Find the input text field of our message we are going to send to Bob
+			var inputField = $("#bob-input");
+			console.log(inputField);
+
+			var whatIAmSayingToBob = inputField.val();
+			console.log(whatIAmSayingToBob);
+			// Create a new instance of Bob
+			// Send our Bob instance our input
+			// Store the results returned from Bob
+
+			var teenager = new Bob();
+			var result = teenager.hey(whatIAmSayingToBob);
+
+			console.log(result);
+			
+			// Find the location where we want to display the results
+			var outputField = $("#bob-responses");
+			console.log(outputField);
+
+			// Append our results to the destination location
+			// outputField.html // return me all the html/text inside the elemnt
+			// outputField.html("new-html") .// replaces the html with what i have passes as a param
+			var htmlResult = "<div>" + result + "</div>";
+			outputField.append(htmlResult);
+		});			
+		</script>
+	</body>
+
+</html>
