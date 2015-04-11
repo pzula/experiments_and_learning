@@ -1,0 +1,5 @@
+<ul>
+	<% email_addresses.each do |email| %>
+		<li><%= email.email %></li> <%= link_to('edit', edit_email_address_path(email)) %> | <%= link_to('delete', email_address_path(email), method: :delete) %>
+	<% end %>
+</ul>

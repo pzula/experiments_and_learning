@@ -1,0 +1,26 @@
+== README
+
+This is a Rails 4.0.1 app, created guided by the JumpstartLab tutorial on advanced Rails techniques, found at 
+<http://tutorials.jumpstartlab.com/projects/contact_manager.html>
+
+* Ruby version 2.0.1
+
+* System dependencies
+- Ruby 2.0.1
+- Bundler
+- Rails
+
+run `bundle install` to install all dependencies
+
+* Database creation
+run `rake db:migrate`
+
+* Database initialization
+run `rake db:setup`
+
+* How to run the test suite
+run `rspec`
+
+* Deployment instructions
+Deployment is as easy as creating a new Heroku app and deploying via the command line. 
+
